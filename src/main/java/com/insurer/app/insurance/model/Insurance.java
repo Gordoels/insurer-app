@@ -27,6 +27,7 @@ public class Insurance {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long insuranceId;
 
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
@@ -37,11 +38,11 @@ public class Insurance {
 	@Column(name = "updated_at")
 	private LocalDateTime updatedAt;
 
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "car_id")
 	private Car car;
 
-	@NotNull
 	@Column(name = "is_active")
 	private boolean active;
 

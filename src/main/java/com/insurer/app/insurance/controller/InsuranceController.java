@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.insurer.app.insurance.dto.InsuranceStatusPatchDTO;
 import com.insurer.app.insurance.model.Insurance;
 import com.insurer.app.insurance.service.InsuranceService;
 
@@ -41,6 +43,13 @@ public class InsuranceController {
         Insurance insurance = insuranceService.updateInsurance(id, updatedInsurance);
         return ResponseEntity.ok(insurance);
     }
+    
+    @PatchMapping("/{id}")
+    public ResponseEntity<Insurance> activeSwitchInsurance(@PathVariable Long id, @RequestBody InsuranceStatusPatchDTO patchDTO) {
+        Insurance insurance = insuranceService.updateInsuranceStatus(id, patchDTO.isActive());
+        return ResponseEntity.ok(insurance);
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteInsurance(@PathVariable Long id) {

@@ -102,6 +102,14 @@ public class InsuranceService {
         return updatedInsurance;
     }
 
+    public Insurance updateInsuranceStatus(Long insuranceId, boolean active) {
+        Insurance insurance = insuranceRepository.findById(insuranceId)
+                .orElseThrow(() -> new EntityNotFoundException("Insurance with id " + insuranceId + " not found"));
+
+        insurance.setActive(active);
+        return insuranceRepository.save(insurance);
+    }
+
 
 	public void deleteInsurance(Long insuranceId) {
 		Insurance insurance = getInsuranceById(insuranceId);
