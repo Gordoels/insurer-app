@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.insurer.app.car.model.Car;
 import com.insurer.app.car.repository.CarRepository;
+import com.insurer.app.claim.repository.ClaimRepository;
 import com.insurer.app.customer.model.Customer;
 import com.insurer.app.customer.repository.CustomerRepository;
 import com.insurer.app.insurance.model.Insurance;
@@ -25,6 +26,9 @@ public class InsuranceService {
 	
 	@Autowired
 	private CustomerRepository customerRepository;
+	
+	@Autowired
+	private ClaimRepository claimRepository;
 
     public Insurance createInsurance(Insurance insurance) {
         getCarObject(insurance);
@@ -67,12 +71,12 @@ public class InsuranceService {
         return birthdate.isAfter(minDate) && birthdate.isBefore(maxDate);
     }
 
-    private boolean hasClaimInDriver(Long driverId) {
-    	return true;
+    public boolean hasClaimInDriver(Long driverId) {
+        return claimRepository.existsByDriverId(driverId);
     }
 
-    private boolean hasClaimInCar(Long carId) {
-        return false;
+    public boolean hasClaimInCar(Long carId) {
+        return claimRepository.existsByCarId(carId);
     }
     
     private void getCarObject(Insurance insurance) {

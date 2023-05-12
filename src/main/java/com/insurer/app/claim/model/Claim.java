@@ -1,13 +1,14 @@
 package com.insurer.app.claim.model;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 import com.insurer.app.car.model.Car;
 import com.insurer.app.driver.model.Driver;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -19,7 +20,8 @@ import lombok.Data;
 @Table(name = "claims")
 public class Claim {
     @Id
-    private UUID claimId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long claimId;
 
     @ManyToOne
     @JoinColumn(name = "car_id")
