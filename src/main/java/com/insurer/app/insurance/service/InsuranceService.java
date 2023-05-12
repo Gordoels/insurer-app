@@ -8,17 +8,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.insurer.app.car.model.Car;
+import com.insurer.app.car.repository.CarRepository;
 import com.insurer.app.customer.model.Customer;
 import com.insurer.app.insurance.model.Insurance;
 import com.insurer.app.insurance.repository.InsuranceRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class InsuranceService {
 	
 	@Autowired
     private InsuranceRepository insuranceRepository;
+	
+	@Autowired
+	private CarRepository carRepository;
 
     public Insurance createInsurance(Insurance insurance) {
+        getCarObject(insurance);
+        getCustomerObject(insurance);
+    	
         double baseRate = calculateBaseRate(insurance.getCar().getFipeValue());
         double riskRate = calculateRiskRate(insurance.getCustomer(), insurance.getCar());
         double totalRate = baseRate + riskRate;
@@ -62,6 +71,16 @@ public class InsuranceService {
 
     private boolean hasClaimInCar(UUID carId) {
         return false;
+    }
+    
+    private void getCarObject(Insurance insurance) {
+    	Car car = carRepository.findById(insurance.getCar().getCarId()).orElseThrow(() -> new EntityNotFoundException("Car not found"));
+        insurance.setCar(car);
+    }
+    
+    private void getCustomerObject(Insurance insurance) {
+    	Customer customer = customerRepository.findById(insurance.getCustomer().getCustomerId()).orElseThrow(() -> new EntityNotFoundException("Customer not found"));
+        insurance.setCustomer(customer);
     }
 
 	public Insurance getInsuranceById(UUID id) {
