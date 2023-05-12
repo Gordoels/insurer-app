@@ -1,7 +1,6 @@
 package com.insurer.app.customer.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +20,7 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
     
-    public Customer getCustomerById(UUID id) {
+    public Customer getCustomerById(Long id) {
         return customerRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Customer with id " + id + " not found"));
     }

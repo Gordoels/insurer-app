@@ -1,7 +1,5 @@
 package com.insurer.app.car.service;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +18,7 @@ public class CarService {
         return carRepository.save(car);
     }
     
-    public Car getCarById(UUID id) {
+    public Car getCarById(Long id) {
         return carRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Car with id " + id + " not found"));
     }

@@ -73,7 +73,7 @@ public class InsuranceService {
     	return true;
     }
 
-    private boolean hasClaimInCar(UUID carId) {
+    private boolean hasClaimInCar(Long carId) {
         return false;
     }
     
@@ -87,7 +87,7 @@ public class InsuranceService {
         insurance.setCustomer(customer);
     }
 
-	public Insurance getInsuranceById(UUID id) {
+	public Insurance getInsuranceById(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -97,12 +97,12 @@ public class InsuranceService {
 		return null;
 	}
 
-	public Insurance updateInsurance(UUID id, Insurance updatedInsurance) {
+	public Insurance updateInsurance(Long id, Insurance updatedInsurance) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public void deleteInsurance(UUID id) {
+	public void deleteInsurance(Long id) {
 		// TODO Auto-generated method stub
 		
 	}

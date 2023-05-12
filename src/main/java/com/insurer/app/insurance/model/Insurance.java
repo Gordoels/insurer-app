@@ -2,13 +2,14 @@ package com.insurer.app.insurance.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import com.insurer.app.car.model.Car;
 import com.insurer.app.customer.model.Customer;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -21,7 +22,8 @@ import lombok.Data;
 @Table(name = "insurances")
 public class Insurance {
 	@Id
-	private UUID insuranceId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long insuranceId;
 
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
@@ -44,7 +46,7 @@ public class Insurance {
 	@Column(name = "insurance_budget")
 	private Double insuranceBudget;
 
-	public Insurance(UUID insuranceId, Customer customer, LocalDate creationDate, LocalDateTime updatedAt, Car car,
+	public Insurance(Long insuranceId, Customer customer, LocalDate creationDate, LocalDateTime updatedAt, Car car,
 			Boolean active, Double insuranceBudget) {
 		this.insuranceId = insuranceId;
 		this.customer = customer;
