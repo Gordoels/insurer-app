@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.insurer.app.car.model.Car;
 import com.insurer.app.car.repository.CarRepository;
 import com.insurer.app.customer.model.Customer;
+import com.insurer.app.customer.repository.CustomerRepository;
 import com.insurer.app.insurance.model.Insurance;
 import com.insurer.app.insurance.repository.InsuranceRepository;
 
@@ -23,6 +24,9 @@ public class InsuranceService {
 	
 	@Autowired
 	private CarRepository carRepository;
+	
+	@Autowired
+	private CustomerRepository customerRepository;
 
     public Insurance createInsurance(Insurance insurance) {
         getCarObject(insurance);
