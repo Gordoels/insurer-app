@@ -16,7 +16,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "insurances")
@@ -41,19 +43,9 @@ public class Insurance {
 
 	@NotNull
 	@Column(name = "is_active")
-	private Boolean active;
+	private boolean active;
 
 	@Column(name = "insurance_budget")
 	private Double insuranceBudget;
 
-	public Insurance(Long insuranceId, Customer customer, LocalDate creationDate, LocalDateTime updatedAt, Car car,
-			Boolean active, Double insuranceBudget) {
-		this.insuranceId = insuranceId;
-		this.customer = customer;
-		this.creationDate = creationDate;
-		this.updatedAt = updatedAt;
-		this.car = car;
-		this.active = active;
-		this.insuranceBudget = insuranceBudget;
-	}
 }

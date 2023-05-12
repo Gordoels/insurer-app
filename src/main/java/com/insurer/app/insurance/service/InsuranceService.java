@@ -2,7 +2,6 @@ package com.insurer.app.insurance.service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,20 +31,20 @@ public class InsuranceService {
         getCarObject(insurance);
         getCustomerObject(insurance);
     	
-        double baseRate = calculateBaseRate(insurance.getCar().getFipeValue());
-        double riskRate = calculateRiskRate(insurance.getCustomer(), insurance.getCar());
-        double totalRate = baseRate + riskRate;
+        Double baseRate = calculateBaseRate(insurance.getCar().getFipeValue());
+        Double riskRate = calculateRiskRate(insurance.getCustomer(), insurance.getCar());
+        Double totalRate = baseRate + riskRate;
 
         insurance.setInsuranceBudget(totalRate);
         return insuranceRepository.save(insurance);
     }
 
-    private double calculateBaseRate(double fipeValue) {
+    private Double calculateBaseRate(double fipeValue) {
         double baseRatePercentage = 0.06;
         return fipeValue * baseRatePercentage;
     }
 
-    private double calculateRiskRate(Customer customer, Car car) {
+    private Double calculateRiskRate(Customer customer, Car car) {
         double riskRatePercentage = 0.0;
 
         if (isAgeInRange(customer.getDriver().getBirthdate(), 18, 25)) {
@@ -69,7 +68,7 @@ public class InsuranceService {
         return birthdate.isAfter(minDate) && birthdate.isBefore(maxDate);
     }
 
-    private boolean hasClaimInDriver(UUID driverId) {
+    private boolean hasClaimInDriver(Long driverId) {
     	return true;
     }
 
