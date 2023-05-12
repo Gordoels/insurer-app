@@ -72,11 +72,11 @@ public class InsuranceService {
     }
 
     public boolean hasClaimInDriver(Long driverId) {
-        return claimRepository.existsByDriverId(driverId);
+        return claimRepository.existsByDriverDriverId(driverId);
     }
 
     public boolean hasClaimInCar(Long carId) {
-        return claimRepository.existsByCarId(carId);
+        return claimRepository.existsByCarCarId(carId);
     }
     
     private void getCarObject(Insurance insurance) {

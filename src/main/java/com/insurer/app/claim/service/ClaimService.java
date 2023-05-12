@@ -32,7 +32,7 @@ public class ClaimService {
 		Claim newClaim = new Claim();
 		newClaim.setCar(car);
 		newClaim.setDriver(driver);
-		newClaim.setEventDate(newClaim.getEventDate());
+		newClaim.setEventDate(claim.getEventDate());
 
 		return claimRepository.save(newClaim);
 	}
@@ -54,7 +54,7 @@ public class ClaimService {
 
 		newClaim.setCar(car);
 		newClaim.setDriver(driver);
-		newClaim.setEventDate(newClaim.getEventDate());
+		newClaim.setEventDate(claim.getEventDate());
 
 		return claimRepository.save(newClaim);
 	}
