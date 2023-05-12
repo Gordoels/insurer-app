@@ -1,7 +1,5 @@
 package com.insurer.app.insurance.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.insurer.app.insurance.model.Insurance;
 import com.insurer.app.insurance.service.InsuranceService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/insurance/budget")
 public class InsuranceController {
@@ -24,7 +24,7 @@ public class InsuranceController {
     private InsuranceService insuranceService;
 
     @PostMapping
-    public ResponseEntity<Insurance> createInsurance(@RequestBody Insurance insurance) {
+    public ResponseEntity<Insurance> createInsurance(@Valid @RequestBody Insurance insurance) {
         Insurance createdInsurance = insuranceService.createInsurance(insurance);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdInsurance);
     }
@@ -33,12 +33,6 @@ public class InsuranceController {
     public ResponseEntity<Insurance> getInsuranceById(@PathVariable Long id) {
         Insurance insurance = insuranceService.getInsuranceById(id);
         return ResponseEntity.ok(insurance);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Insurance>> getAllInsurances() {
-        List<Insurance> insurances = insuranceService.getAllInsurances();
-        return ResponseEntity.ok(insurances);
     }
 
     @PutMapping("/{id}")

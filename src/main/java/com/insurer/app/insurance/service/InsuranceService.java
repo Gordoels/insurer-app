@@ -1,7 +1,6 @@
 package com.insurer.app.insurance.service;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -86,24 +85,27 @@ public class InsuranceService {
         insurance.setCustomer(customer);
     }
 
-	public Insurance getInsuranceById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public Insurance getInsuranceById(Long insuranceId) {
+        return insuranceRepository.findById(insuranceId)
+                .orElseThrow(() -> new EntityNotFoundException("Insurance with id " + insuranceId + " not found"));
+    }
 
-	public List<Insurance> getAllInsurances() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public Insurance updateInsurance(Long insuranceId, Insurance updatedInsurance) {
 
-	public Insurance updateInsurance(Long id, Insurance updatedInsurance) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        Insurance existingInsurance = insuranceRepository.findById(insuranceId)
+                .orElseThrow(() -> new EntityNotFoundException("Insurance with id " + insuranceId + " not found"));
 
-	public void deleteInsurance(Long id) {
-		// TODO Auto-generated method stub
-		
+        existingInsurance.setActive(updatedInsurance.isActive());
+
+        existingInsurance = insuranceRepository.save(updatedInsurance);
+
+        return updatedInsurance;
+    }
+
+
+	public void deleteInsurance(Long insuranceId) {
+		Insurance insurance = getInsuranceById(insuranceId);
+        insuranceRepository.delete(insurance);
 	}
 
 }
