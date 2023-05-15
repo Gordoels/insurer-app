@@ -6,7 +6,5 @@ import com.insurer.app.claim.model.Claim;
 
 
 public interface ClaimRepository extends JpaRepository<Claim, Long> {
-	boolean existsByDriverDriverId(Long driverId);
-    boolean existsByCarCarId(Long carId);
 }
 
