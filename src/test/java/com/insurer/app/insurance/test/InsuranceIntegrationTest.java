@@ -90,28 +90,6 @@ public class InsuranceIntegrationTest {
 		MockitoAnnotations.openMocks(this);
 	}
 
-//    @Test
-//    public void testInsurancePersistence() {
-//
-//        entityManager.persistAndFlush(car);
-//        entityManager.persistAndFlush(driver);
-//        entityManager.persistAndFlush(customer);
-//
-//        
-//        Insurance insurance = new Insurance();
-//        insurance.setCar(car);
-//        insurance.setCustomer(customer);
-//        insurance.setInsuranceBudget(600.0);
-//
-//        Insurance savedInsurance = entityManager.persistAndFlush(insurance);
-//
-//        
-//        assertNotNull(savedInsurance.getInsuranceId());
-//        assertEquals(car.getCarId(), savedInsurance.getCar().getCarId());
-//        assertEquals(customer.getCustomerId(), savedInsurance.getCustomer().getCustomerId());
-//        assertEquals(600.0, savedInsurance.getInsuranceBudget());
-//    }
-
 	@Test
 	public void testCreateInsuranceService() {
 
