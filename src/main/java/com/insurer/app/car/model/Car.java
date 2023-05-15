@@ -31,6 +31,6 @@ public class Car {
 	@Column(name = "fipe_value")
 	private Double fipeValue;
 
-	@Column(name = "has_claims")
-	private boolean hasClaims;
+	@Column(name = "has_claim")
+	private boolean hasClaim;
 }

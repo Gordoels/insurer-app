@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 import com.insurer.app.car.exception.CarNotFoundException;
 import com.insurer.app.car.model.Car;
 import com.insurer.app.car.repository.CarRepository;
-import com.insurer.app.claim.repository.ClaimRepository;
 import com.insurer.app.customer.exception.CustomerNotFoundException;
 import com.insurer.app.customer.model.Customer;
 import com.insurer.app.customer.repository.CustomerRepository;
+import com.insurer.app.driver.repository.DriverRepository;
 import com.insurer.app.insurance.exception.InsuranceNotFoundException;
 import com.insurer.app.insurance.model.Insurance;
 import com.insurer.app.insurance.repository.InsuranceRepository;
@@ -30,7 +30,7 @@ public class InsuranceService {
 	private CustomerRepository customerRepository;
 	
 	@Autowired
-	private ClaimRepository claimRepository;
+	private DriverRepository driverRepository;
 
     public Insurance createInsurance(Insurance insurance) {
         getCar(insurance);
@@ -82,11 +82,13 @@ public class InsuranceService {
     	return (age >= 18) ? true : false;
     }
     public boolean hasClaimInDriver(Long driverId) {
-        return claimRepository.existsByDriverDriverId(driverId);
+    	boolean driverHasClaim = driverRepository.existsByDriverIdAndHasClaim(driverId, true);
+        return driverHasClaim;
     }
 
     public boolean hasClaimInCar(Long carId) {
-        return claimRepository.existsByCarCarId(carId);
+    	boolean carHasClaim = carRepository.existsByCarIdAndHasClaim(carId, true);
+        return carHasClaim;
     }
     
     private void getCar(Insurance insurance) {
