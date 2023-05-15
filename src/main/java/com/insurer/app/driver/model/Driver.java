@@ -25,5 +25,7 @@ public class Driver {
     @Column(name = "birthdate")
     private LocalDate birthdate;
 
+    @Column(name = "has_claims")
+	private boolean hasClaims;
 }
 

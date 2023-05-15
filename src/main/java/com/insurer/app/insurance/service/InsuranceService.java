@@ -1,19 +1,21 @@
 package com.insurer.app.insurance.service;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.insurer.app.car.exception.CarNotFoundException;
 import com.insurer.app.car.model.Car;
 import com.insurer.app.car.repository.CarRepository;
 import com.insurer.app.claim.repository.ClaimRepository;
+import com.insurer.app.customer.exception.CustomerNotFoundException;
 import com.insurer.app.customer.model.Customer;
 import com.insurer.app.customer.repository.CustomerRepository;
+import com.insurer.app.insurance.exception.InsuranceNotFoundException;
 import com.insurer.app.insurance.model.Insurance;
 import com.insurer.app.insurance.repository.InsuranceRepository;
-
-import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class InsuranceService {
@@ -31,8 +33,8 @@ public class InsuranceService {
 	private ClaimRepository claimRepository;
 
     public Insurance createInsurance(Insurance insurance) {
-        getCarObject(insurance);
-        getCustomerObject(insurance);
+        getCar(insurance);
+        getCustomer(insurance);
     	
         Double baseRate = calculateBaseRate(insurance.getCar().getFipeValue());
         Double riskRate = calculateRiskRate(insurance.getCustomer(), insurance.getCar());
@@ -50,6 +52,8 @@ public class InsuranceService {
     private Double calculateRiskRate(Customer customer, Car car) {
         double riskRatePercentage = 0.0;
 
+        isAgeLegal(customer.getDriver().getBirthdate());
+        
         if (isAgeInRange(customer.getDriver().getBirthdate(), 18, 25)) {
             riskRatePercentage += 0.02;
         }
@@ -71,6 +75,12 @@ public class InsuranceService {
         return birthdate.isAfter(minDate) && birthdate.isBefore(maxDate);
     }
 
+    private boolean isAgeLegal(LocalDate birthdate) {
+    	LocalDate presentDay = LocalDate.now();
+    	int age = Period.between(birthdate, presentDay).getYears();
+    	
+    	return (age >= 18) ? true : false;
+    }
     public boolean hasClaimInDriver(Long driverId) {
         return claimRepository.existsByDriverDriverId(driverId);
     }
@@ -79,25 +89,25 @@ public class InsuranceService {
         return claimRepository.existsByCarCarId(carId);
     }
     
-    private void getCarObject(Insurance insurance) {
-    	Car car = carRepository.findById(insurance.getCar().getCarId()).orElseThrow(() -> new EntityNotFoundException("Car not found"));
+    private void getCar(Insurance insurance) {
+    	Car car = carRepository.findById(insurance.getCar().getCarId()).orElseThrow(() -> new CarNotFoundException());
         insurance.setCar(car);
     }
     
-    private void getCustomerObject(Insurance insurance) {
-    	Customer customer = customerRepository.findById(insurance.getCustomer().getCustomerId()).orElseThrow(() -> new EntityNotFoundException("Customer not found"));
+    private void getCustomer(Insurance insurance) {
+    	Customer customer = customerRepository.findById(insurance.getCustomer().getCustomerId()).orElseThrow(() -> new CustomerNotFoundException());
         insurance.setCustomer(customer);
     }
 
     public Insurance getInsuranceById(Long insuranceId) {
         return insuranceRepository.findById(insuranceId)
-                .orElseThrow(() -> new EntityNotFoundException("Insurance with id " + insuranceId + " not found"));
+                .orElseThrow(() -> new InsuranceNotFoundException());
     }
 
     public Insurance updateInsurance(Long insuranceId, Insurance updatedInsurance) {
 
         Insurance existingInsurance = insuranceRepository.findById(insuranceId)
-                .orElseThrow(() -> new EntityNotFoundException("Insurance with id " + insuranceId + " not found"));
+                .orElseThrow(() -> new InsuranceNotFoundException());
 
         existingInsurance.setActive(updatedInsurance.isActive());
 
@@ -108,7 +118,7 @@ public class InsuranceService {
 
     public Insurance updateInsuranceStatus(Long insuranceId, boolean active) {
         Insurance insurance = insuranceRepository.findById(insuranceId)
-                .orElseThrow(() -> new EntityNotFoundException("Insurance with id " + insuranceId + " not found"));
+                .orElseThrow(() -> new InsuranceNotFoundException());
 
         insurance.setActive(active);
         return insuranceRepository.save(insurance);

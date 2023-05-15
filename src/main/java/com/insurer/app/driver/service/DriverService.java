@@ -1,19 +1,17 @@
 package com.insurer.app.driver.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.insurer.app.driver.exception.DriverNotFoundException;
 import com.insurer.app.driver.model.Driver;
 import com.insurer.app.driver.repository.DriverRepository;
 
-import jakarta.persistence.EntityNotFoundException;
-
 @Service
 public class DriverService {
-    private final DriverRepository driverRepository;
-
-    public DriverService(DriverRepository driverRepository) {
-        this.driverRepository = driverRepository;
-    }
+	
+	@Autowired
+    private DriverRepository driverRepository;
 
     public Driver createDriver(Driver driver) {
         return driverRepository.save(driver);
@@ -21,7 +19,7 @@ public class DriverService {
 
     public Driver getDriverById(Long id) {
         return driverRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Driver not found with ID: " + id));
+                .orElseThrow(() -> new DriverNotFoundException());
     }
 }
 
