@@ -54,3 +54,9 @@ A aplicação inclui testes unitários e testes de integração. Foram cobertos 
 Você pode rodar os testes com o comando 'gradle test'
 
 
+## Considerações finais
+
+O banco de dados pode ser acessado no localhost:8080/h2-console.
+Este projeto é um desafio também de aprendizado, está totalmente público no link https://github.com/Gordoels/insurer-app, qualquer 
+sugestão de melhoria é bem-vinda!
+
