@@ -51,5 +51,6 @@ Também há um arquivo de configuração para keys chamado messages.properties o
 ## Testes
 
 A aplicação inclui testes unitários e testes de integração. Foram cobertos todos os serviços e persistência das regras de negócio.
+Você pode rodar os testes com o comando 'gradle test'
 
 
