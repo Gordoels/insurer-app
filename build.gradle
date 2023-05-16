@@ -6,12 +6,10 @@ plugins {
 
 group = 'com.insurer'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
 
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+java {
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
 }
 
 repositories {
@@ -32,6 +30,15 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok:1.18.26'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+jar {
+    enabled = true
+    archiveBaseName = 'insurer'
+    archiveVersion =  '0.1.0'
+    manifest {
+        attributes 'Main-Class': 'InsurerApplication'
+    }
 }
 
 tasks.named('test') {
