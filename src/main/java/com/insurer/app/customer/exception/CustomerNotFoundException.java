@@ -2,8 +2,12 @@ package com.insurer.app.customer.exception;
 
 import java.util.Locale;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
 import com.insurer.app.messages.config.Messages;
 
+@ResponseStatus(HttpStatus.NOT_FOUND)
 public class CustomerNotFoundException extends RuntimeException {
 
 	private static final long serialVersionUID = 5167359807360729419L;
