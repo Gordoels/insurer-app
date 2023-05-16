@@ -1,7 +1,6 @@
 package com.insurer.app.insurance.service;
 
 import java.time.LocalDate;
-import java.time.Period;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,8 +51,6 @@ public class InsuranceService {
 	private Double calculateRiskRate(Customer customer, Car car) {
 		double riskRatePercentage = 0.0;
 
-		isAgeLegal(customer.getDriver().getBirthdate());
-
 		if (isAgeInRange(customer.getDriver().getBirthdate(), 18, 25)) {
 			riskRatePercentage += 0.02;
 		}
@@ -73,13 +70,6 @@ public class InsuranceService {
 		LocalDate minDate = LocalDate.now().minusYears(maxAge);
 		LocalDate maxDate = LocalDate.now().minusYears(minAge).plusDays(1);
 		return birthdate.isAfter(minDate) && birthdate.isBefore(maxDate);
-	}
-
-	private boolean isAgeLegal(LocalDate birthdate) {
-		LocalDate presentDay = LocalDate.now();
-		int age = Period.between(birthdate, presentDay).getYears();
-
-		return (age >= 18) ? true : false;
 	}
 
 	public boolean hasClaimInDriver(Long driverId) {

@@ -1,12 +1,12 @@
 package com.insurer.app.cardriver.model;
 
-import java.util.UUID;
-
 import com.insurer.app.car.model.Car;
 import com.insurer.app.driver.model.Driver;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -18,7 +18,8 @@ import lombok.Data;
 @Table(name = "car_drivers")
 public class CarDriver {
     @Id
-    private UUID carDriverId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long carDriverId;
 
     @ManyToOne
     @JoinColumn(name = "car_id")
