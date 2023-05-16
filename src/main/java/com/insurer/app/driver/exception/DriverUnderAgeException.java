@@ -8,19 +8,23 @@ public class DriverUnderAgeException extends RuntimeException {
 	
 	private static final long serialVersionUID = 3412088822449934217L;
 	
-	private static String messageKey = "exception.driverUnderAgeException";
+	private static final String MESSAGE_KEY = "exception.driverUnderAgeException";
     private Locale locale;
     
     public DriverUnderAgeException() {
-        this(messageKey, Locale.getDefault());
+        this(Locale.getDefault());
     }
 
-    public DriverUnderAgeException(String messageKey, Locale locale) {
-        DriverUnderAgeException.messageKey = messageKey;
+    public DriverUnderAgeException(Locale locale) {
         this.locale = locale;
     }
 
     public String getMessage() {
-        return Messages.getMessageForLocale(messageKey, locale);
+        return Messages.getMessageForLocale(MESSAGE_KEY, locale);
+    }
+    
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return this;
     }
 }

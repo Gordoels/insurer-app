@@ -8,19 +8,23 @@ public class InsuranceNotFoundException extends RuntimeException {
 
 	private static final long serialVersionUID = 4049488316801178044L;
 
-	private static String messageKey = "exception.insuranceNotFoundException";
+	private static final String MESSAGE_KEY = "exception.insuranceNotFoundException";
     private Locale locale;
     
     public InsuranceNotFoundException() {
-        this(messageKey, Locale.getDefault());
+        this(Locale.getDefault());
     }
 
-    public InsuranceNotFoundException(String messageKey, Locale locale) {
-    	InsuranceNotFoundException.messageKey = messageKey;
+    public InsuranceNotFoundException(Locale locale) {
         this.locale = locale;
     }
 
     public String getMessage() {
-        return Messages.getMessageForLocale(messageKey, locale);
+        return Messages.getMessageForLocale(MESSAGE_KEY, locale);
+    }
+    
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return this;
     }
 }

@@ -8,20 +8,23 @@ public class ClaimNotFoundException extends RuntimeException {
 	
 	private static final long serialVersionUID = -3074858174772838364L;
 	
-	private static String messageKey = "exception.claimNotFoundException";
+	private static final String MESSAGE_KEY = "exception.claimNotFoundException";
     private Locale locale;
     
     public ClaimNotFoundException() {
-        this(messageKey, Locale.getDefault());
+        this(Locale.getDefault());
     }
 
-    public ClaimNotFoundException(String messageKey, Locale locale) {
-    	ClaimNotFoundException.messageKey = messageKey;
+    public ClaimNotFoundException( Locale locale) {
         this.locale = locale;
     }
 
     public String getMessage() {
-        return Messages.getMessageForLocale(messageKey, locale);
+        return Messages.getMessageForLocale(MESSAGE_KEY, locale);
     }
 	
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return this;
+    }
 }

@@ -8,20 +8,23 @@ public class DriverNotFoundException extends RuntimeException {
 	
 	private static final long serialVersionUID = 1474902126550642581L;
 	
-	private static String messageKey = "exception.driverNotFoundException";
+	private static final String MESSAGE_KEY = "exception.driverNotFoundException";
     private Locale locale;
     
     public DriverNotFoundException() {
-        this(messageKey, Locale.getDefault());
+        this(Locale.getDefault());
     }
 
-    public DriverNotFoundException(String messageKey, Locale locale) {
-    	DriverNotFoundException.messageKey = messageKey;
+    public DriverNotFoundException(Locale locale) {
         this.locale = locale;
     }
 
     public String getMessage() {
-        return Messages.getMessageForLocale(messageKey, locale);
+        return Messages.getMessageForLocale(MESSAGE_KEY, locale);
     }
 	
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return this;
+    }
 }

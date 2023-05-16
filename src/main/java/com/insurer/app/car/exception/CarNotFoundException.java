@@ -8,19 +8,24 @@ public class CarNotFoundException extends RuntimeException {
 	
 	private static final long serialVersionUID = 1379716571048609958L;
 	
-	private static String messageKey = "exception.carNotFoundException";
+	private static final String MESSAGE_KEY = "exception.carNotFoundException";
+	
     private Locale locale;
     
     public CarNotFoundException() {
-        this(messageKey, Locale.getDefault());
+        this(Locale.getDefault());
     }
 
-    public CarNotFoundException(String messageKey, Locale locale) {
-    	CarNotFoundException.messageKey = messageKey;
+    public CarNotFoundException(Locale locale) {
         this.locale = locale;
     }
 
     public String getMessage() {
-        return Messages.getMessageForLocale(messageKey, locale);
+        return Messages.getMessageForLocale(MESSAGE_KEY, locale);
+    }
+    
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return this;
     }
 }
