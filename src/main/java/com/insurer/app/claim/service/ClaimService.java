@@ -1,5 +1,7 @@
 package com.insurer.app.claim.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +29,17 @@ public class ClaimService {
 		Car car = carRepository.findById(claim.getCar().getCarId())
 				.orElseThrow(() -> new CarNotFoundException("exception.carNotFoundException"));
 
+		Optional.ofNullable(claim.getCar())
+	    .filter(ca -> !ca.isHasClaim())
+	    .ifPresent(ca -> ca.setHasClaim(true));
+
 		Driver driver = driverRepository.findById(claim.getDriver().getDriverId()).orElseThrow(
 				() -> new DriverNotFoundException("exception.driverNotFoundException"));
 
+		Optional.ofNullable(claim.getDriver())
+	    .filter(dr -> !dr.isHasClaim())
+	    .ifPresent(dr -> dr.setHasClaim(true));
+		
 		Claim newClaim = new Claim();
 		newClaim.setCar(car);
 		newClaim.setDriver(driver);
