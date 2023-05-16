@@ -83,7 +83,8 @@ public class InsuranceService {
 	}
 
 	private void getCar(Insurance insurance) {
-		Car car = carRepository.findById(insurance.getCar().getCarId()).orElseThrow(() -> new CarNotFoundException("exception.carNotFoundException"));
+		Car car = carRepository.findById(insurance.getCar().getCarId())
+				.orElseThrow(() -> new CarNotFoundException("exception.carNotFoundException"));
 		insurance.setCar(car);
 	}
 
@@ -105,7 +106,7 @@ public class InsuranceService {
 
 		existingInsurance.setActive(updatedInsurance.isActive());
 
-		existingInsurance = insuranceRepository.save(updatedInsurance);
+		updatedInsurance = insuranceRepository.save(existingInsurance);
 
 		return updatedInsurance;
 	}
