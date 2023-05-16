@@ -1,4 +1,4 @@
-package com.insurer.app.messages;
+package com.insurer.app.messages.config;
 
 import java.util.Locale;
 import java.util.ResourceBundle;

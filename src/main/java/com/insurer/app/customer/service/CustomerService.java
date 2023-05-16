@@ -21,7 +21,7 @@ public class CustomerService {
     
     public Customer getCustomerById(Long id) {
         return customerRepository.findById(id)
-                .orElseThrow(() -> new CustomerNotFoundException("exception.customerNotFoundException"));
+                .orElseThrow(() -> new CustomerNotFoundException());
     }
     
     public List<Customer> getAllCustomers() {

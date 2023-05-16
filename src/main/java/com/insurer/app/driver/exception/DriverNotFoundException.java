@@ -2,21 +2,21 @@ package com.insurer.app.driver.exception;
 
 import java.util.Locale;
 
-import com.insurer.app.messages.Messages;
+import com.insurer.app.messages.config.Messages;
 
 public class DriverNotFoundException extends RuntimeException {
 	
 	private static final long serialVersionUID = 1474902126550642581L;
 	
-	private final String messageKey;
-    private final Locale locale;
-	
-	public DriverNotFoundException(String messageKey) {
+	private static String messageKey = "exception.driverNotFoundException";
+    private Locale locale;
+    
+    public DriverNotFoundException() {
         this(messageKey, Locale.getDefault());
     }
 
     public DriverNotFoundException(String messageKey, Locale locale) {
-        this.messageKey = messageKey;
+    	DriverNotFoundException.messageKey = messageKey;
         this.locale = locale;
     }
 

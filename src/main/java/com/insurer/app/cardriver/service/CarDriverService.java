@@ -21,7 +21,7 @@ public class CarDriverService {
 
 	public CarDriver getCarDriverById(Long id) {
 		return carDriverRepository.findById(id)
-				.orElseThrow(() -> new CarDriverNotFoundException("exception.carDriverNotFoundException"));
+				.orElseThrow(() -> new CarDriverNotFoundException());
 	}
 
 	public CarDriver createCarDriver(CarDriver carDriver) {
@@ -31,7 +31,7 @@ public class CarDriverService {
 	public CarDriver updateCarDriver(Long id, CarDriver updatedCarDriver) {
 		
 		CarDriver existingCarDriver = carDriverRepository.findById(id)
-				.orElseThrow(() -> new CarDriverNotFoundException("exception.carDriverNotFoundException"));
+				.orElseThrow(() -> new CarDriverNotFoundException());
 
 		updatedCarDriver = carDriverRepository.save(existingCarDriver);
 		return updatedCarDriver;

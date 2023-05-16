@@ -27,14 +27,14 @@ public class ClaimService {
 
 	public Claim createClaim(Claim claim) {
 		Car car = carRepository.findById(claim.getCar().getCarId())
-				.orElseThrow(() -> new CarNotFoundException("exception.carNotFoundException"));
+				.orElseThrow(() -> new CarNotFoundException());
 
 		Optional.ofNullable(claim.getCar())
 	    .filter(ca -> !ca.isHasClaim())
 	    .ifPresent(ca -> ca.setHasClaim(true));
 
 		Driver driver = driverRepository.findById(claim.getDriver().getDriverId()).orElseThrow(
-				() -> new DriverNotFoundException("exception.driverNotFoundException"));
+				() -> new DriverNotFoundException());
 
 		Optional.ofNullable(claim.getDriver())
 	    .filter(dr -> !dr.isHasClaim())
@@ -58,10 +58,10 @@ public class ClaimService {
 				.orElseThrow(() -> new ClaimNotFoundException());
 
 		Car car = carRepository.findById(claim.getCar().getCarId())
-				.orElseThrow(() -> new CarNotFoundException("exception.carNotFoundException"));
+				.orElseThrow(() -> new CarNotFoundException());
 
 		Driver driver = driverRepository.findById(claim.getDriver().getDriverId()).orElseThrow(
-				() -> new DriverNotFoundException("exception.driverNotFoundException"));
+				() -> new DriverNotFoundException());
 
 		newClaim.setCar(car);
 		newClaim.setDriver(driver);

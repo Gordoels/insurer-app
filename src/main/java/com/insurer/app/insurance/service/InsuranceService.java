@@ -84,25 +84,25 @@ public class InsuranceService {
 
 	private void getCar(Insurance insurance) {
 		Car car = carRepository.findById(insurance.getCar().getCarId())
-				.orElseThrow(() -> new CarNotFoundException("exception.carNotFoundException"));
+				.orElseThrow(() -> new CarNotFoundException());
 		insurance.setCar(car);
 	}
 
 	private void getCustomer(Insurance insurance) {
 		Customer customer = customerRepository.findById(insurance.getCustomer().getCustomerId())
-				.orElseThrow(() -> new CustomerNotFoundException("exception.customerNotFoundException"));
+				.orElseThrow(() -> new CustomerNotFoundException());
 		insurance.setCustomer(customer);
 	}
 
 	public Insurance getInsuranceById(Long insuranceId) {
 		return insuranceRepository.findById(insuranceId)
-				.orElseThrow(() -> new InsuranceNotFoundException("exception.insuranceNotFoundException"));
+				.orElseThrow(() -> new InsuranceNotFoundException());
 	}
 
 	public Insurance updateInsurance(Long insuranceId, Insurance updatedInsurance) {
 
 		Insurance existingInsurance = insuranceRepository.findById(insuranceId)
-				.orElseThrow(() -> new InsuranceNotFoundException("exception.insuranceNotFoundException"));
+				.orElseThrow(() -> new InsuranceNotFoundException());
 
 		existingInsurance.setActive(updatedInsurance.isActive());
 
@@ -113,7 +113,7 @@ public class InsuranceService {
 
 	public Insurance updateInsuranceStatus(Long insuranceId, boolean active) {
 		Insurance insurance = insuranceRepository.findById(insuranceId)
-				.orElseThrow(() -> new InsuranceNotFoundException("exception.insuranceNotFoundException"));
+				.orElseThrow(() -> new InsuranceNotFoundException());
 
 		insurance.setActive(active);
 		return insuranceRepository.save(insurance);

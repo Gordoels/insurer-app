@@ -23,13 +23,13 @@ public class DriverService {
 		int age = Period.between(driver.getBirthdate(), presentDay).getYears();
 		
 		Optional.of(age).filter(yo -> yo < 18).ifPresent(yo -> {
-			throw new DriverUnderAgeException("exception.driverUnderAgeException");
+			throw new DriverUnderAgeException();
 		});
 
 		return driverRepository.save(driver);
 	}
 
 	public Driver getDriverById(Long id) {
-		return driverRepository.findById(id).orElseThrow(() -> new DriverNotFoundException("exception.driverNotFoundException"));
+		return driverRepository.findById(id).orElseThrow(() -> new DriverNotFoundException());
 	}
 }
