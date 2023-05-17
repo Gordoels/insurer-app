@@ -1,5 +1,7 @@
 package com.insurer.app.car.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,10 @@ public class CarService {
     public Car createCar(Car car) {
         return carRepository.save(car);
     }
+    
+    public List<Car> getAllCars() {
+		return carRepository.findAll();
+	}
     
     public Car getCarById(Long id) {
         return carRepository.findById(id)
